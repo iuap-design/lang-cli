@@ -61,17 +61,25 @@ var walk = function (dir, dir_i18n, done) {
                           match.map((item)=>{
                               subMatch =  'language.template("'+item+'")';
                               // subMatch = '$i18n{' +item+'}$i18n-end' ;
+                              console.log(" --item--- ",item);
                               replaced = replaced.replace("'"+item+"'", subMatch);
                               replaced = replaced.replace('"'+item+'"', subMatch);
                               replaced = replaced.replace(item, subMatch);
                               replaced = replaced.replace("`"+item+"`", subMatch);
+
+                              var key = file.substring(dir.length + 1) + (count++);
+                              var input = JSON.stringify({[key]:match});
+                              fs.appendFileSync('pack.json', input + '\n');
+                              
                           })
                         }else{ //只有一处匹配那么全局替换就可以
-                          var replacement = 'language.template("'+match+'")'
+                          var replacement = 'language.template("'+match[0]+'")'
                           //  '$i18n{' + match +'}$i18n-end' ;
-                          let aaa = spieces.replace(re,replacement);
-                           
-                          replaced=replaced+aaa;
+                          replaced=replaced + spieces.replace(re,replacement);
+                          console.log(" --template--- ",match[0]);
+                          var key = file.substring(dir.length + 1) + (count++)
+                          var input = JSON.stringify({[key]:match[0]});
+                          fs.appendFileSync('pack.json', input + '\n');
                         }
                     }else{
                         replaced=replaced+spieces;
@@ -93,7 +101,7 @@ module.exports = (indir) => {
     // spinner.color = 'green';
     console.error(chalk.green('lang string ... '));
     const rootpaths = indir.split(/\/|\\/);
-    const root_i18n = `${indir.substring(0, indir.length - rootpaths[rootpaths.length - 1].length)}i18n_addTags`; // /Users/yaoxin/Downloads/workspace/cloud-os_manager_fe/i18n
+    const root_i18n = `${indir.substring(0, indir.length - rootpaths[rootpaths.length - 1].length)}lang_src`; // /Users/yaoxin/Downloads/workspace/cloud-os_manager_fe/i18n
     if (!fs.existsSync(root_i18n)) { 
       fs.mkdirSync(root_i18n);
     }
