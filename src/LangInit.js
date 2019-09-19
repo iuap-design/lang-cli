@@ -60,26 +60,41 @@ var walk = function (dir, dir_i18n, done) {
                           replaced = spieces;
                           match.map((item)=>{
 							  subMatch =  'language.template("'+item+'")';
-							 
-                              replaced = replaced.replace("'"+item+"'", subMatch);
-                              replaced = replaced.replace('"'+item+'"', subMatch);
-                              replaced = replaced.replace(item, subMatch);
-                              replaced = replaced.replace("`"+item+"`", subMatch);
+							//   console.log(replaced);
+							  console.log("'"+item+"'");
+							 console.log(replaced.indexOf('"'+item+'"'));
+							//   replaced = replaced.replace('"'+item+'"', subMatch);
+							//  replaced = replaced.replace(item, subMatch);
+							
+							  if(replaced.indexOf("'"+item+"'") > -1){
+								replaced = replaced.replace('"'+item+'"', subMatch);
+							  }else if(replaced.indexOf('"'+item+'"') > -1){
+								replaced = replaced.replace('"'+item+'"', subMatch);
+							  }else if(replaced.indexOf("`"+item+"`") > -1){
+								replaced = replaced.replace("`"+item+"`", subMatch);
+							  }else{
+								replaced = replaced.replace(item, subMatch);
+							  }
+
+							//   replaced = replaced.replace("'"+item+"'", subMatch);
+                            //  replaced = replaced.replace('"'+item+'"', subMatch);
+                            //  replaced = replaced.replace(item, subMatch);
+                            //  replaced = replaced.replace("`"+item+"`", subMatch);
 
 							  // 中文抽取
                               var key = file.substring(dir.length + 1) + (count++);
-							  var input = JSON.stringify({[key]:item});
-                              fs.appendFileSync('pack.json', input + '\n');
+							  var input = JSON.stringify({[item]:item});
+                              fs.appendFileSync('pack.json', input + ',\n');
                               
                           })
                         }else{ //只有一处匹配那么全局替换就可以
-                          var replacement = 'language.template("'+match[0]+'")'
+						  var replacement = 'language.template("'+match[0]+'")';
 						  replaced=replaced + spieces.replace(re,replacement);
 						  
 						  // 中文抽取
                           var key = file.substring(dir.length + 1) + (count++)
-                          var input = JSON.stringify({[key]:match[0]});
-                          fs.appendFileSync('pack.json', input + '\n');
+                          var input = JSON.stringify({[match[0]]:match[0]});
+                          fs.appendFileSync('pack.json', input + ',\n');
                         }
                     }else{
                         replaced=replaced+spieces;
