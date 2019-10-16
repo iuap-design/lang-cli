@@ -6,7 +6,9 @@ const co = require('co');
 const help = require('./help');
 const LangInit = require('./LangInit');
 const LangSync = require('./LangSync');
-
+const fileToJSON = require('./fileToJSON');
+const fyJsonToJson = require('./fyJsonToJson');
+const jsonToExcel = require('./ExcelOption');
 
 module.exports = {
   plugin: function(options) {
@@ -28,6 +30,20 @@ module.exports = {
             return;
           }
           LangInit(commands[1]);
+          break;
+          case "json":
+              fileToJSON();
+          break;
+          case "excel":
+              console.log(" --commands--- ",process.argv);
+            if(!process.argv[3]){
+              help.help();
+            }else{
+              jsonToExcel(process.argv[3],process.argv[4]);
+            }
+        break;
+          case "fy":
+              fyJsonToJson();
           break;
         case "sync":
           LangSync(); 
