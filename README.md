@@ -8,7 +8,7 @@
 ## 安装
 
 ```bash
-$ ynpm install lang-cli -g 或者 (npm install lang-cli -g )
+$ ynpm install lang-cli -g (目前为内网)
 
 $ mkdir app && cd app
 
