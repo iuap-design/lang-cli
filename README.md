@@ -22,7 +22,28 @@ $ lang-cli init
 ```bash
     $ lang excel --json [dir]     把多语格式的json文件，转换成可翻译的excel 文件  | -- 后为目标语言 
 
-    $ lang excel --excel [dir] | 把翻译后的excel文件，再换回json文件  | -- 后为目标语言 |
+```
+
+> packa.json 文件格式
+
+```json
+{
+  "zhcn":
+  {
+    "YS_FI_FP_0000032496": "十二月",
+  }
+  "enus":
+  {
+    "YS_FI_FP_0000032496": "十二月_en",
+  }
+  ....
+}
+
+```
+
+```bash
+
+  $ lang excel --excel [dir] | 把翻译后的excel文件，再换回json文件  | -- 后为目标语言 |
 ```
   2. 根据提示会在当前命令行目录下生成对应的文件，进行替换项目pack.js 即可(替换的时候注意js、json的转换)。
 
