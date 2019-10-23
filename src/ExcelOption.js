@@ -43,7 +43,7 @@ var excelToJson = function (dir,filename,don) {
     }
     writeJson(itemObj,don);
   } catch (error) {
-    // console.err(" error ");
+    // console(" error ");
   }
 };
 
@@ -57,9 +57,9 @@ var writeJson = function (data,don) {
 var jsonToExcel = function (dir,filename,don) {
   if(!dir)return;
   let excelUrl = dir; 
-  var langDate = JSON.parse(fs.readFileSync(dir)).zhcn;
+  var langDate = JSON.parse(fs.readFileSync(dir));
   if(!langDate){
-    console.err(" read file error !");
+    console(" read file error !");
     return;
   }
   

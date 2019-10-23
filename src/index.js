@@ -24,7 +24,6 @@ module.exports = {
             help.version();
             break;
         case "init":
-          console.log(" ----- ");
           if(commands.length != 2){
             help.help();
             return;
@@ -35,7 +34,6 @@ module.exports = {
               fileToJSON();
           break;
           case "excel":
-              console.log(" --commands--- ",process.argv);
             if(!process.argv[3]){
               help.help();
             }else{
